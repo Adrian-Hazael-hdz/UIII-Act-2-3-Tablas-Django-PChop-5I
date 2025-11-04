@@ -1,8 +1,3 @@
-Perfecto 💪 entiendo lo que quieres:
-que el documento para GitHub (formato `.md`) se vea **como un manual profesional**, con **subtítulos grandes (## / ###)**, buena **separación visual**, **bloques de código destacados**, y **listas limpias** — no amontonadas ni con tanto texto corrido.
-
-Aquí te dejo la **versión mejorada del README.md** para que se vea impecable en GitHub 👇
-(cada paso está numerado, con título grande y código o explicación separada).
 
 ---
 
@@ -468,7 +463,5 @@ http://127.0.0.1:8017/
 
 ```
 
----
 
-¿Quieres que te prepare **la Segunda Parte (CRUD de Categoría con código HTML y vistas)** con el **mismo formato GitHub markdown**? Así tendrías las dos partes listas para tu repositorio.
 ```
