@@ -1,53 +1,64 @@
 # 🧩 Proyecto PChop — Primera Parte
 
-## 📘 Datos Generales del Proyecto
-- **Proyecto:** PChop  
-- **Lenguaje:** Python  
-- **Framework:** Django  
-- **Editor:** Visual Studio Code  
-- **Tipo:** Sistema Web Administrativo para una Tienda de Computadoras  
+---
+
+## 📘 Información General
+
+**Nombre del Proyecto:** PChop  
+**Lenguaje:** Python  
+**Framework:** Django  
+**Editor:** Visual Studio Code  
+**Tipo:** Sistema Web Administrativo para Tienda de Computadoras  
 
 ---
 
 ## ⚙️ Configuración Inicial del Entorno
 
-### 1️⃣ Crear carpeta del proyecto
+---
+
+### 🥇 1. Crear Carpeta del Proyecto
+
 ```bash
 mkdir UIII_PChop_1128
 cd UIII_PChop_1128
-2️⃣ Abrir Visual Studio Code
+🥈 2. Abrir la Carpeta en Visual Studio Code
 Abrir VS Code
 
-Menú: Archivo → Abrir carpeta → UIII_PChop_1128
+Ir a: Archivo → Abrir carpeta → UIII_PChop_1128
 
-3️⃣ Abrir la terminal integrada
+🥉 3. Abrir la Terminal Integrada
 Menú: Ver → Terminal
 
-Confirmar ruta actual:
+Verifica la ruta actual:
 
 makefile
 Copiar código
 C:\Users\<usuario>\UIII_PChop_1128>
-4️⃣ Crear el entorno virtual
+🔢 4. Crear el Entorno Virtual
 bash
 Copiar código
 python -m venv .venv
-5️⃣ Activar el entorno virtual
+🧠 5. Activar el Entorno Virtual
 bash
 Copiar código
 .venv\Scripts\activate
-💡 Si se activó correctamente, la terminal mostrará:
+💡 Si todo está correcto, verás:
 (.venv) C:\Users\<usuario>\UIII_PChop_1128>
 
-6️⃣ Seleccionar el intérprete de Python
+🐍 6. Seleccionar el Intérprete de Python
 En VS Code:
-Ctrl + Shift + P → Python: Select Interpreter → Selecciona .venv
 
-7️⃣ Instalar Django
+Presiona Ctrl + Shift + P
+
+Escribe: Python: Select Interpreter
+
+Selecciona: .venv\Scripts\python.exe
+
+💾 7. Instalar Django
 bash
 Copiar código
 pip install django
-8️⃣ Crear el proyecto Django (sin duplicar carpeta)
+🏗️ 8. Crear el Proyecto Django (sin duplicar carpeta)
 bash
 Copiar código
 django-admin startproject backend_PChop .
@@ -66,20 +77,20 @@ UIII_PChop_1128/
 │
 ├── manage.py
 └── .venv/
-9️⃣ Ejecutar el servidor en el puerto 8017
+🌐 9. Ejecutar el Servidor en el Puerto 8017
 bash
 Copiar código
 python manage.py runserver 8017
-🔟 Abrir en el navegador
+🔗 10. Abrir el Proyecto en el Navegador
 cpp
 Copiar código
 http://127.0.0.1:8017/
 🧱 Creación de la Aplicación
-11️⃣ Crear aplicación app_PChop
+⚒️ 11. Crear la Aplicación app_PChop
 bash
 Copiar código
 python manage.py startapp app_PChop
-Estructura del proyecto:
+Estructura del Proyecto:
 
 markdown
 Copiar código
@@ -90,7 +101,6 @@ UIII_PChop_1128/
 │   ├── apps.py
 │   ├── models.py
 │   ├── views.py
-│   ├── tests.py
 │   ├── migrations/
 │   └── __init__.py
 │
@@ -102,7 +112,7 @@ UIII_PChop_1128/
 ├── manage.py
 └── .venv/
 🧩 Modelos — models.py
-12️⃣ Código del archivo app_PChop/models.py
+🧱 12. Crear Modelos en app_PChop/models.py
 python
 Copiar código
 from django.db import models
@@ -149,14 +159,18 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f"Pedido #{self.id} - {self.cliente}"
-12.5️⃣ Realizar migraciones
+💽 12.5 Realizar Migraciones
 bash
 Copiar código
 python manage.py makemigrations
 python manage.py migrate
-📦 Trabajo con el Modelo CATEGORÍA
-13️⃣ Solo trabajar inicialmente con Categoria
-14️⃣ En views.py crear funciones:
+🧩 Trabajo con el Modelo Categoria
+🧮 13. Trabajar Inicialmente Solo con Categoria
+Los modelos Producto y Pedido se dejarán pendientes.
+
+🧰 14. Crear Funciones en views.py
+Definir las vistas:
+
 inicio_PChop
 
 agregar_categoria
@@ -168,7 +182,7 @@ realizar_actualizacion_categoria
 borrar_categoria
 
 🧭 Estructura de Plantillas (Templates)
-15️⃣ Crear carpeta principal templates
+🗂️ 15. Crear Carpeta Principal templates
 css
 Copiar código
 app_PChop/
@@ -179,19 +193,36 @@ app_PChop/
     ├── navbar.html
     ├── footer.html
     └── inicio.html
-16️⃣ Configuración de las plantillas
-base.html → incluir Bootstrap (CSS + JS) y bloques {% block content %}
+🖋️ 16. Configurar las Plantillas Base
+base.html
+Incluir Bootstrap (CSS + JS)
 
-header.html → título del sistema
+Añadir bloques {% block content %}{% endblock %}
 
-navbar.html → menú con submenús
+navbar.html
+Menú principal:
 
-footer.html → derechos de autor, fecha y creador
+Inicio
 
-inicio.html → información general + imagen sobre PChop
+Categoría → Agregar / Ver / Actualizar / Borrar
+
+Producto → Agregar / Ver / Actualizar / Borrar
+
+Pedido → Agregar / Ver / Actualizar / Borrar
+
+Íconos solo en las opciones principales
+
+footer.html
+Mostrar derechos de autor, fecha y creador:
+
+mathematica
+Copiar código
+© {{ fecha_actual }} | Creado por Adrian Hazael 5I, CBTIS 128
+inicio.html
+Incluir texto informativo sobre el sistema y una imagen de tienda de computadoras.
 
 🗂️ Subcarpeta para Categoría
-21️⃣ Crear estructura:
+🗃️ 21. Crear Subcarpeta
 markdown
 Copiar código
 app_PChop/
@@ -202,23 +233,24 @@ app_PChop/
         ├── ver_categorias.html
         ├── actualizar_categoria.html
         └── borrar_categoria.html
-22️⃣ Configuración de las páginas:
-ver_categorias.html → mostrar tabla con botones Ver, Editar, Borrar
+📄 22. Configuración de las Páginas
+ver_categorias.html → mostrar registros en tabla
+con botones Ver, Editar y Borrar
 
-No usar forms.py
+⚠️ No usar forms.py (formularios hechos con HTML puro).
 
 🌐 Configuración de URLs y Enlaces
-24️⃣ Crear urls.py en app_PChop
-Enlazar las rutas a las funciones CRUD del views.py.
+🔗 24. Crear Archivo urls.py en app_PChop
+Enlazar las rutas de las funciones CRUD del views.py.
 
-25️⃣ Registrar la app en settings.py
+⚙️ 25. Registrar la App en settings.py
 python
 Copiar código
 INSTALLED_APPS = [
     ...
     'app_PChop',
 ]
-26️⃣ Enlazar urls.py del proyecto
+🧭 26. Configurar urls.py del Proyecto
 En backend_PChop/urls.py agregar:
 
 python
@@ -230,7 +262,7 @@ urlpatterns = [
     path('', include('app_PChop.urls')),
 ]
 🧾 Administración y Migraciones Finales
-27️⃣ Registrar modelos en admin.py
+🗃️ 27. Registrar Modelos en admin.py
 python
 Copiar código
 from django.contrib import admin
@@ -239,20 +271,21 @@ from .models import Categoria, Producto, Pedido
 admin.site.register(Categoria)
 admin.site.register(Producto)
 admin.site.register(Pedido)
-Ejecutar nuevamente:
+Luego ejecutar:
+
 bash
 Copiar código
 python manage.py makemigrations
 python manage.py migrate
 🎨 Diseño y Estilo
-28️⃣ Recomendaciones
-Usar colores suaves y modernos
+🧡 28. Recomendaciones de Diseño
+Colores suaves, atractivos y modernos
 
 Diseño simple y limpio
 
-No validar entradas de datos
+No validar entrada de datos
 
-Íconos de Bootstrap solo en los menús principales
+Íconos de Bootstrap solo en menús principales
 
 🧰 Estructura Completa del Proyecto
 css
@@ -289,7 +322,7 @@ UIII_PChop_1128/
 │
 └── manage.py
 🚀 Ejecución Final
-31️⃣ Ejecutar el servidor
+▶️ 31. Ejecutar el Servidor
 bash
 Copiar código
 python manage.py runserver 8017
@@ -298,7 +331,7 @@ Abrir en el navegador:
 cpp
 Copiar código
 http://127.0.0.1:8017/
-✅ Proyecto completamente funcional (solo módulo Categoría por ahora)
+✅ Proyecto funcional — módulo Categoría completo
 
-👨‍💻 Creado por:
+👨‍💻 Autor
 Adrian Hazael — 5I — CBTIS 128
