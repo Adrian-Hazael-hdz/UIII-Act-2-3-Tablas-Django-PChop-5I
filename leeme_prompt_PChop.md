@@ -1,83 +1,68 @@
-🖥️ PROYECTO: PChop
+🖥️ Primera Parte – Proyecto: PChop
 
 Lenguaje: Python
 Framework: Django
 Editor: Visual Studio Code
 
-🧱 1. Creación y preparación del entorno
+🔧 Configuración Inicial
 
-1️⃣ Crear la carpeta del proyecto
+Crear la carpeta del proyecto:
+Nombre: UIII_PChop_1128
 
-mkdir UIII_PChop_1128
+Abrir Visual Studio Code sobre la carpeta UIII_PChop_1128.
 
+Abrir la terminal integrada en Visual Studio Code.
+(Menú: Ver → Terminal o Ctrl + ñ)
 
-2️⃣ Abrir Visual Studio Code sobre la carpeta
-
-Abre VS Code
-
-Menú: Archivo > Abrir carpeta
-
-Selecciona: UIII_PChop_1128
-
-3️⃣ Abrir la terminal integrada
-
-En VS Code:
-Menú Terminal > Nueva terminal
-o presiona Ctrl + ñ
-
-4️⃣ Crear el entorno virtual “.venv”
+Crear el entorno virtual desde la terminal:
 
 python -m venv .venv
 
 
-5️⃣ Activar el entorno virtual
+Activar el entorno virtual:
 
-En Windows:
+En Windows (PowerShell):
 
 .venv\Scripts\activate
 
 
-En Linux/Mac:
+En macOS/Linux:
 
 source .venv/bin/activate
 
 
-6️⃣ Seleccionar el intérprete de Python en VS Code
+Seleccionar el intérprete de Python desde VS Code:
 
-Presiona Ctrl + Shift + P
+Comando: Ctrl + Shift + P → “Python: Select Interpreter” → elegir .venv.
 
-Escribe: Python: Select Interpreter
-
-Selecciona el que termine con .venv
-
-7️⃣ Instalar Django
+Instalar Django:
 
 pip install django
 
-⚙️ 2. Crear el proyecto y aplicación Django
 
-8️⃣ Crear el proyecto sin duplicar carpeta
+Crear el proyecto Django sin duplicar carpetas:
 
 django-admin startproject backend_PChop .
 
 
-9️⃣ Ejecutar servidor en el puerto 8017
+Ejecutar el servidor en el puerto 8017:
 
 python manage.py runserver 8017
 
 
-🔟 Copiar y pegar el enlace en el navegador
+Copiar y pegar el enlace en el navegador:
 
 http://127.0.0.1:8017/
 
+📦 Creación de la Aplicación
 
-1️⃣1️⃣ Crear la aplicación
+Crear la aplicación principal:
 
 python manage.py startapp app_PChop
 
-💾 3. MODELOS (models.py)
+🧱 Modelo – models.py
 
-Ubicado en: app_PChop/models.py
+Agregar el siguiente código en app_PChop/models.py:
 
 from django.db import models
 
@@ -97,7 +82,7 @@ class Categoria(models.Model):
 
 # MODELO: PRODUCTO
 class Producto(models.Model):
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')  # 1 a muchos
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -112,7 +97,7 @@ class Producto(models.Model):
 
 # MODELO: PEDIDO
 class Pedido(models.Model):
-    productos = models.ManyToManyField(Producto, related_name='pedidos')  # muchos a muchos
+    productos = models.ManyToManyField(Producto, related_name='pedidos')
     fecha_pedido = models.DateTimeField(auto_now_add=True)
     cliente = models.CharField(max_length=100)
     direccion_envio = models.CharField(max_length=255)
@@ -124,72 +109,17 @@ class Pedido(models.Model):
     def __str__(self):
         return f"Pedido #{self.id} - {self.cliente}"
 
-🧩 4. Migraciones
 
-12.5️⃣ Crear y aplicar migraciones
+12.5 Realizar las migraciones:
 
 python manage.py makemigrations
 python manage.py migrate
 
-📁 5. Estructura de plantillas HTML
+🧩 Trabajo con el modelo Categoría
 
-15️⃣ Crear carpeta templates dentro de app_PChop
+Primero trabajar con el modelo: CATEGORIA.
 
-app_PChop/
- ├── templates/
- │   ├── base.html
- │   ├── header.html
- │   ├── navbar.html
- │   ├── footer.html
- │   └── inicio.html
-
-
-17️⃣ Agregar Bootstrap a base.html (CSS + JS)
-
-18️⃣ En navbar.html incluir menús y submenús:
-
-Sistema de Administración PChop
-
-Inicio
-
-Categoría → Agregar, Ver, Actualizar, Borrar
-
-Producto → Agregar, Ver, Actualizar, Borrar
-
-Pedido → Agregar, Ver, Actualizar, Borrar
-(Con íconos solo en los menús principales)
-
-19️⃣ En footer.html:
-
-Derechos de autor, fecha del sistema y “Creado por Adrian Hazael 5I, CBTIS 128”.
-Fijo al final de la página.
-
-20️⃣ En inicio.html:
-
-Información sobre el sistema y una imagen de PChop (tienda de computadoras).
-
-📂 6. Carpeta Categoría
-
-21️⃣ Crear subcarpeta:
-
-app_PChop/templates/categoria/
-
-
-22️⃣ Crear archivos:
-
-agregar_categoria.html
-
-ver_categorias.html (tabla con botones ver, editar, borrar)
-
-actualizar_categoria.html
-
-borrar_categoria.html
-
-Sin usar forms.py, solo con HTML y views.
-
-⚡ 7. Vistas y Rutas
-
-14️⃣ En views.py crear funciones:
+En views.py de app_PChop, crear las funciones:
 
 inicio_PChop
 
@@ -201,17 +131,104 @@ realizar_actualizacion_categoria
 
 borrar_categoria
 
-24️⃣ Crear urls.py en app_PChop
-Configura las rutas para conectar las vistas CRUD.
+🧱 Estructura de Templates
 
-26️⃣ Configurar urls.py de backend_PChop
-Incluye la app:
+Crear la carpeta:
 
-path('', include('app_PChop.urls')),
+app_PChop/templates
 
-🧭 8. Configuraciones finales
 
-25️⃣ Registrar la app en settings.py
+Dentro de templates, crear los archivos HTML:
+
+base.html
+
+header.html
+
+navbar.html
+
+footer.html
+
+inicio.html
+
+Agregar Bootstrap (CSS y JS) en base.html.
+
+Diseñar navbar.html con las opciones:
+
+Sistema de Administración PChop
+
+Inicio
+
+Categoría
+
+Agregar Categoría
+
+Ver Categorías
+
+Actualizar Categoría
+
+Borrar Categoría
+
+Producto
+
+Agregar Producto
+
+Ver Producto
+
+Actualizar Producto
+
+Borrar Producto
+
+Pedido
+
+Agregar Pedido
+
+Ver Pedido
+
+Actualizar Pedido
+
+Borrar Pedido
+(Agregar íconos solo a las opciones principales.)
+
+Diseñar footer.html:
+
+Incluir derechos de autor
+
+Fecha del sistema
+
+Texto: “Creado por Adrian Hazael 5I, CBTis 128”
+
+Mantenerlo fijo al final de la página.
+
+En inicio.html:
+
+Colocar información general del sistema
+
+Añadir una imagen desde la web sobre una tienda de computadoras.
+
+📂 Sección Categorías
+
+Crear subcarpeta:
+
+app_PChop/templates/categoria
+
+
+Crear los archivos HTML con su código correspondiente:
+
+agregar_categoria.html
+
+ver_categorias.html (mostrar en tabla con botones ver, editar, borrar)
+
+actualizar_categoria.html
+
+borrar_categoria.html
+
+⚙️ Configuraciones Django
+
+No utilizar forms.py.
+
+Crear archivo urls.py en app_PChop con las rutas necesarias para el CRUD de categorías.
+
+Agregar la app app_PChop en settings.py:
 
 INSTALLED_APPS = [
     ...,
@@ -219,32 +236,24 @@ INSTALLED_APPS = [
 ]
 
 
-27️⃣ Registrar modelos en admin.py y volver a migrar
+Configurar urls.py de backend_PChop para enlazar con app_PChop.
 
-from django.contrib import admin
-from .models import Categoria, Producto, Pedido
-
-admin.site.register(Categoria)
-admin.site.register(Producto)
-admin.site.register(Pedido)
+Registrar los modelos en admin.py y volver a migrar:
 
 python manage.py makemigrations
 python manage.py migrate
 
-🎨 9. Recomendaciones de diseño
+🎨 Estilo y Presentación
 
-28️⃣ Colores suaves, atractivos y modernos
-28️⃣ Sin validación de datos
-29️⃣ Crear toda la estructura completa desde el inicio
-30️⃣ Proyecto totalmente funcional
+Usar colores suaves, atractivos y modernos.
+Las páginas deben ser sencillas y funcionales.
 
-🚀 10. Ejecución final
+No validar entrada de datos.
 
-31️⃣ Ejecutar el servidor
+Crear toda la estructura de carpetas y archivos al inicio.
+
+Proyecto totalmente funcional.
+
+Ejecutar el servidor nuevamente en el puerto 8017:
 
 python manage.py runserver 8017
-
-
-👉 Abre en navegador:
-
-http://127.0.0.1:8017/
