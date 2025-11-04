@@ -1,181 +1,71 @@
 
 
-````markdown
-# 🧩 Proyecto PChop — Primera Parte (31 pasos completos)
-
 ---
 
-## 📘 Información general del proyecto
-- **Proyecto:** PChop  
-- **Lenguaje:** Python  
-- **Framework:** Django  
-- **Editor recomendado:** Visual Studio Code  
-- **Objetivo:** Sistema web administrativo para una tienda de computadoras (módulo Categoría por ahora)
+## Paso 1 — Crear la carpeta del proyecto
 
----
+Crea la carpeta principal del proyecto: `UIII_PChop_1128`.
+Ejemplo: `C:\ruta\a\proyectos\UIII_PChop_1128` o `~/proyectos/UIII_PChop_1128`.
 
+## Paso 2 — Abrir VS Code sobre la carpeta
 
+Abre VS Code en esa carpeta: desde el Explorador → **Abrir carpeta**, o por terminal:
+`code C:\ruta\a\UIII_PChop_1128` (Windows) / `code ~/proyectos/UIII_PChop_1128` (Linux/Mac).
 
----
+## Paso 3 — Abrir la terminal integrada en VS Code
 
-## ## 1. Crear carpeta del Proyecto: `UIII_PChop_1128`
-```bash
-mkdir UIII_PChop_1128
-cd UIII_PChop_1128
-````
+Menú **Terminal → Nueva terminal** o atajo (`Ctrl+ñ` / `Ctrl+` `). La terminal se abrirá en la raíz `UIII_PChop_1128`.
 
----
+## Paso 4 — Crear la carpeta del entorno virtual `.venv` desde la terminal
 
-## ## 2. Abrir VS Code sobre la carpeta `UIII_PChop_1128`
+Crear el virtualenv dentro del proyecto para evitar rutas globales:
+`python -m venv .venv`
 
-* Abrir Visual Studio Code → **Archivo → Abrir carpeta** → seleccionar `UIII_PChop_1128`.
+## Paso 5 — Activar el entorno virtual
 
----
+* PowerShell (Windows): `.\.venv\Scripts\Activate.ps1`
+* cmd (Windows): `.\.venv\Scripts\activate`
+* Bash / macOS / WSL: `source .venv/bin/activate`
 
-## ## 3. Abrir terminal integrada en VS Code
+## Paso 6 — Activar el intérprete de Python en VS Code
 
-* Menú: **Ver → Terminal**
-* Asegúrate de que la terminal está en la ruta del proyecto:
+Abrir la Paleta (`Ctrl+Shift+P`) → **Python: Select Interpreter** → elegir `.venv` (la ruta `.venv/...`).
 
-```
-C:\Users\<usuario>\UIII_PChop_1128>
-```
-
----
-
-## ## 4. Crear carpeta entorno virtual `.venv` desde terminal de VS Code
-
-```bash
-python -m venv .venv
-```
-
-> Esto crea la carpeta `.venv/` dentro de la raíz del proyecto.
-
----
-
-## ## 5. Activar el entorno virtual
-
-* En Windows (PowerShell o CMD):
-
-```bash
-.venv\Scripts\activate
-```
-
-* En Git Bash / WSL (Linux/macOS):
-
-```bash
-source .venv/bin/activate
-```
-
-La terminal debe mostrar el prefijo `(.venv)`.
-
----
-
-## ## 6. Activar intérprete de Python (VS Code)
-
-* `Ctrl + Shift + P` → `Python: Select Interpreter` → seleccionar el intérprete dentro de `.venv` (por ejemplo `.venv\Scripts\python.exe`).
-
----
-
-## ## 7. Procedimiento para instalar Django
+## Paso 7 — Instalar Django
 
 Con el entorno activo:
+`pip install django`
+(Puedes fijar versión: `pip install "django>=4.2,<5"` si quieres consistencia).
 
-```bash
-pip install django
-```
+## Paso 8 — Crear proyecto `backend_PChop` sin duplicar carpeta
 
-Opcional: fijar versión si se requiere:
+Para no crear una carpeta extra dentro de la carpeta del proyecto, ejecuta desde la raíz:
+`django-admin startproject backend_PChop .`
+(la `.` evita crear otra carpeta `backend_PChop` dentro de `UIII_PChop_1128`).
 
-```bash
-pip install "django>=4.2,<5"
-```
+## Paso 9 — Ejecutar servidor en el puerto **8017**
 
----
+Desde la carpeta donde está `manage.py`:
+`python manage.py runserver 8017`
+(usa `0.0.0.0:8017` si quieres acceder desde otras máquinas: `python manage.py runserver 0.0.0.0:8017`).
 
-## ## 8. Crear proyecto `backend_PChop` sin duplicar carpeta
+## Paso 10 — Copiar y pegar el link en el navegador
 
-Ejecutar **desde la raíz del proyecto**:
+Abrir en el navegador: `http://127.0.0.1:8017/` (o la IP/host indicado por `runserver`).
 
-```bash
-django-admin startproject backend_PChop .
-```
+## Paso 11 — Crear la aplicación `app_PChop`
 
-(Este comando crea la carpeta `backend_PChop/` y los archivos `manage.py` ya existentes no se duplican.)
+Desde la raíz del proyecto (donde está `manage.py`):
+`python manage.py startapp app_PChop`
 
-Estructura tras crear el proyecto:
+## Paso 12 — Añadir `models.py` en `app_PChop` (modelo inicial)
 
-```
-UIII_PChop_1128/
-├── backend_PChop/
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── manage.py
-└── .venv/
-```
-
----
-
-## ## 9. Ejecutar servidor en el puerto 8017
-
-```bash
-python manage.py runserver 8017
-```
-
-Salida esperada:
-
-```
-Starting development server at http://127.0.0.1:8017/
-```
-
----
-
-## ## 10. Copiar y pegar el link en el navegador
-
-Abrir:
-
-```
-http://127.0.0.1:8017/
-```
-
-Verificar que aparece la página de bienvenida de Django.
-
----
-
-## ## 11. Crear aplicación `app_PChop`
-
-En la raíz del proyecto:
-
-```bash
-python manage.py startapp app_PChop
-```
-
-Estructura:
-
-```
-app_PChop/
-├── admin.py
-├── apps.py
-├── migrations/
-├── models.py
-├── tests.py
-├── views.py
-└── __init__.py
-```
-
----
-
-## ## 12. Aquí el modelo `models.py` (añadir a `app_PChop/models.py`)
-
-Pega exactamente este código en `app_PChop/models.py`:
+Coloca este `models.py` (ya provisto):
 
 ```python
 from django.db import models
 
-# MODELO: CATEGORIA
+#MODELO: CATEGORIA
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
@@ -188,9 +78,9 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
-# MODELO: PRODUCTO
+#MODELO: PRODUCTO
 class Producto(models.Model):
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')  # 1 a muchos
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -202,9 +92,9 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
-# MODELO: PEDIDO
+#MODELO: PEDIDO
 class Pedido(models.Model):
-    productos = models.ManyToManyField(Producto, related_name='pedidos')
+    productos = models.ManyToManyField(Producto, related_name='pedidos')  # muchos a muchos
     fecha_pedido = models.DateTimeField(auto_now_add=True)
     cliente = models.CharField(max_length=100)
     direccion_envio = models.CharField(max_length=255)
@@ -217,390 +107,157 @@ class Pedido(models.Model):
         return f"Pedido #{self.id} - {self.cliente}"
 ```
 
----
+> Nota: por ahora trabajaremos solamente con **Categoria**; Producto y Pedido quedan pendientes según lo indicado.
 
-## ## 12.5. Procedimiento para realizar las migraciones (makemigrations y migrate)
+## Paso 12.5 — Realizar migraciones iniciales (`makemigrations` y `migrate`)
 
-Ejecuta:
+1. `python manage.py makemigrations app_PChop`
+2. `python manage.py migrate`
 
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
+## Paso 13 — Empezar trabajando con el MODELO: **CATEGORÍA**
 
-Verifica que no haya errores y que se creen las tablas en la base de datos SQLite (por defecto).
+Definir campos, admin y vistas CRUD para `Categoria` primero; dejar Producto y Pedido para después.
 
----
+## Paso 14 — En `views.py` de `app_PChop` crear funciones (con su responsabilidad)
 
-## ## 13. Primero trabajamos con el MODELO: CATEGORÍA
+Crear las funciones y su lógica mínima:
 
-* Dejar `Producto` y `Pedido` pendientes para fases siguientes.
-* Implementar CRUD completo y plantillas para `Categoria` primero.
+* `inicio_PChop(request)` → mostrar `inicio.html` con resumen del sistema.
+* `agregar_categoria(request)` → mostrar formulario HTML (POST crea categoria).
+* `actualizar_categoria(request, slug_o_id)` → mostrar formulario con datos.
+* `realizar_actualizacion_categoria(request, slug_o_id)` → procesar POST y guardar cambios.
+* `borrar_categoria(request, slug_o_id)` → confirmar y eliminar.
 
----
+(Implementar con `request.method == "POST"` y templates sin usar `forms.py` — construir los `<form>` manualmente.)
 
-## ## 14. En `views.py` de `app_PChop` crear las funciones
+## Paso 15 — Crear la carpeta `templates` dentro de `app_PChop`
 
-Abrir `app_PChop/views.py` y añadir (ejemplo estructural — ajustar como prefieras):
+Estructura: `app_PChop/templates/` y dentro subcarpetas según convenga.
 
-```python
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Categoria
+## Paso 16 — Crear los archivos HTML: `base.html`, `header.html`, `navbar.html`, `footer.html`, `inicio.html`
 
-def inicio_PChop(request):
-    return render(request, 'inicio.html')
+* `base.html` será la plantilla base con bloques `{% block content %}{% endblock %}`.
+* Incluir `header`, `navbar` y `footer` con `{% include %}` en `base.html`.
 
-def ver_categorias(request):
-    categorias = Categoria.objects.all().order_by('-fecha_creacion')
-    return render(request, 'categoria/ver_categorias.html', {'categorias': categorias})
+## Paso 17 — En `base.html` agregar Bootstrap para CSS y JS
 
-def agregar_categoria(request):
-    if request.method == 'POST':
-        # recibir datos desde formulario HTML (sin forms.py)
-        nombre = request.POST.get('nombre')
-        descripcion = request.POST.get('descripcion')
-        slug = request.POST.get('slug')
-        imagen = request.POST.get('imagen')
-        prioridad = request.POST.get('prioridad') or 1
-        Categoria.objects.create(
-            nombre=nombre, descripcion=descripcion, slug=slug,
-            imagen=imagen, prioridad=int(prioridad)
-        )
-        return redirect('ver_categorias')
-    return render(request, 'categoria/agregar_categoria.html')
+Usa CDN (ejemplo): `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.x/dist/css/bootstrap.min.css" rel="stylesheet">` y el script de bootstrap al final del `body`.
 
-def actualizar_categoria(request, pk):
-    categoria = get_object_or_404(Categoria, pk=pk)
-    return render(request, 'categoria/actualizar_categoria.html', {'categoria': categoria})
+## Paso 18 — En `navbar.html` incluir las opciones principales y submenús
 
-def realizar_actualizacion_categoria(request, pk):
-    categoria = get_object_or_404(Categoria, pk=pk)
-    if request.method == 'POST':
-        categoria.nombre = request.POST.get('nombre')
-        categoria.descripcion = request.POST.get('descripcion')
-        categoria.slug = request.POST.get('slug')
-        categoria.imagen = request.POST.get('imagen')
-        categoria.prioridad = int(request.POST.get('prioridad') or 1)
-        categoria.save()
-        return redirect('ver_categorias')
-    return redirect('actualizar_categoria', pk=pk)
+Menú principal con iconos (ej: usando Bootstrap icons o FontAwesome):
 
-def borrar_categoria(request, pk):
-    categoria = get_object_or_404(Categoria, pk=pk)
-    if request.method == 'POST':
-        categoria.delete()
-        return redirect('ver_categorias')
-    return render(request, 'categoria/borrar_categoria.html', {'categoria': categoria})
-```
+* “Sistema de Administración PChop” (marca)
+* “Inicio”
+* “Categoría” → submenu: Agregar, Ver, Actualizar, Borrar
+* “Producto” → submenu: Agregar, Ver, Actualizar, Borrar
+* “Pedido” → submenu: Agregar, Ver, Actualizar, Borrar
+  (Iconos en opciones principales, no en submenú).
 
-> Nota: Este código asume uso de POST en formularios HTML — no hay validaciones.
+## Paso 19 — En `footer.html` incluir derechos y autor y mantenerla fija abajo
 
----
+Texto: `© <año> Creado por Adrian Hazael 5I, Cbtis 128` y mostrar la fecha del sistema (`{{ now|date:"Y" }}`) o renderizar con `datetime` en template. Fijarla con CSS para que quede al final de la página.
 
-## ## 15. Crear la carpeta `templates` dentro de `app_PChop`
+## Paso 20 — `inicio.html`: información del sistema + imagen desde la web
 
-Estructura:
+Mostrar descripción de PChop y una imagen representativa tomada de la red (URL en `<img src="...">`).
 
-```
-app_PChop/
-└── templates/
-    ├── base.html
-    ├── header.html
-    ├── navbar.html
-    ├── footer.html
-    └── inicio.html
-```
+## Paso 21 — Crear subcarpeta `categoria` dentro de `app_PChop/templates`
 
----
+Ruta: `app_PChop/templates/categoria/`
 
-## ## 16. En `templates` crear archivos HTML (base.html, header.html, navbar.html, footer.html, inicio.html)
+## Paso 22 — Crear los templates de categoría: agregar, ver, actualizar, borrar
 
-* `base.html` contendrá la base, carga Bootstrap y los bloques `{% block content %}`.
-* `header.html`, `navbar.html`, `footer.html` serán fragmentos incluidos con `{% include %}`.
-* `inicio.html` hereda de `base.html`.
+* `agregar_categoria.html` → formulario para crear.
+* `ver_categorias.html` → tabla con columnas y botones **Ver | Editar | Borrar** por fila.
+* `actualizar_categoria.html` → formulario prellenado para editar.
+* `borrar_categoria.html` → confirmación antes de eliminar.
 
-Ejemplo muy corto de `base.html` (completa según diseño):
+## Paso 23 — **No utilizar `forms.py`**
 
-```html
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PChop - Administración</title>
-  <!-- Bootstrap CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-  {% include 'header.html' %}
-  {% include 'navbar.html' %}
-  <main class="container my-4">
-    {% block content %}{% endblock %}
-  </main>
-  {% include 'footer.html' %}
-  <!-- Bootstrap JS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-```
+Crear formularios HTML manuales (`<form method="post">`) y procesarlos en las vistas (leer `request.POST`).
 
----
+## Paso 24 — Crear el archivo `urls.py` en `app_PChop` con rutas CRUD para categorías
 
-## ## 17. En `base.html` agregar Bootstrap para CSS y JS
-
-* Usar CDN de Bootstrap 5 (ejemplos arriba).
-* Incluir `<meta>` responsive.
-* Mantener bloques de plantilla claros.
-
----
-
-## ## 18. En `navbar.html` incluir las opciones y submenu
-
-Estructura del menú (ejemplo con Bootstrap):
-
-* Título: **Sistema de Administración PChop**
-* Menú principal:
-
-  * Inicio
-  * Categoría → (Agregar, Ver, Actualizar, Borrar)
-  * Producto → (Agregar, Ver, Actualizar, Borrar)
-  * Pedido → (Agregar, Ver, Actualizar, Borrar)
-* Íconos solo en las opciones principales (p. ej. usar `bi bi-shop` de Bootstrap Icons).
-
-Ejemplo de fragmento (simplificado):
-
-```html
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Sistema de Administración PChop</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categoría</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'agregar_categoria' %}">Agregar Categoria</a></li>
-            <li><a class="dropdown-item" href="{% url 'ver_categorias' %}">Ver Categorias</a></li>
-          </ul>
-        </li>
-        <!-- Producto y Pedido similar -->
-      </ul>
-    </div>
-  </div>
-</nav>
-```
-
----
-
-## ## 19. En `footer.html` incluir derechos de autor, fecha del sistema y texto fijo al final
-
-Contenido sugerido:
-
-```html
-<footer class="bg-light text-center py-3 fixed-bottom">
-  © {{ now|date:"Y" }} | Creado por Adrian Hazael 5I, Cbtis 128
-</footer>
-```
-
-> Asegúrate que `now` esté en el contexto o usa `django.template.context_processors.request` y `{{ now }}` con template tag si es necesario.
-
----
-
-## ## 20. En `inicio.html` colocar información del sistema + imagen desde la red
-
-Ejemplo:
-
-```html
-{% extends 'base.html' %}
-{% block content %}
-  <h1>Bienvenido a PChop</h1>
-  <p>Sistema administrativo para gestión de la tienda de componentes.</p>
-  <img src="https://example.com/imagen-pchop.jpg" alt="PChop tienda" class="img-fluid">
-{% endblock %}
-```
-
-(Reemplazar la URL por una imagen real en la web.)
-
----
-
-## ## 21. Crear subcarpeta `categoria` dentro de `app_PChop/templates`
-
-Estructura:
-
-```
-app_PChop/
-└── templates/
-    └── categoria/
-        ├── agregar_categoria.html
-        ├── ver_categorias.html
-        ├── actualizar_categoria.html
-        └── borrar_categoria.html
-```
-
----
-
-## ## 22. Crear los archivos HTML para categoría con su código correspondiente
-
-* `agregar_categoria.html`: formulario `<form method="post">` con campos `nombre`, `descripcion`, `slug`, `imagen`, `prioridad`.
-* `ver_categorias.html`: tabla `<table>` listando categorías con botones **Ver**, **Editar**, **Borrar** (cada botón enlaza a la ruta correspondiente).
-* `actualizar_categoria.html`: formulario precargado con datos de la categoría.
-* `borrar_categoria.html`: pantalla de confirmación con `POST` para eliminar.
-
-> Ejemplos de formularios: usar inputs simples. No hay validación.
-
----
-
-## ## 23. No utilizar `forms.py`
-
-* Los formularios deben construirse con HTML puro y manejar `request.POST` en las vistas (tal como se ejemplificó en `views.py`).
-
----
-
-## ## 24. Procedimiento para crear `urls.py` en `app_PChop` (rutas CRUD)
-
-Crear `app_PChop/urls.py` con el siguiente contenido:
+Ejemplo mínimo en `app_PChop/urls.py`:
 
 ```python
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.inicio_PChop, name='inicio'),
-    path('categorias/', views.ver_categorias, name='ver_categorias'),
-    path('categorias/agregar/', views.agregar_categoria, name='agregar_categoria'),
-    path('categorias/<int:pk>/editar/', views.actualizar_categoria, name='actualizar_categoria'),
-    path('categorias/<int:pk>/editar/guardar/', views.realizar_actualizacion_categoria, name='realizar_actualizacion_categoria'),
-    path('categorias/<int:pk>/borrar/', views.borrar_categoria, name='borrar_categoria'),
+    path('', views.inicio_PChop, name='inicio_PChop'),
+    path('categoria/agregar/', views.agregar_categoria, name='agregar_categoria'),
+    path('categoria/ver/', views.ver_categorias, name='ver_categorias'),
+    path('categoria/editar/<int:id>/', views.actualizar_categoria, name='actualizar_categoria'),
+    path('categoria/actualizar/<int:id>/', views.realizar_actualizacion_categoria, name='realizar_actualizacion_categoria'),
+    path('categoria/borrar/<int:id>/', views.borrar_categoria, name='borrar_categoria'),
 ]
 ```
 
----
+(Ajusta `id` o `slug` según tu preferencia.)
 
-## ## 25. Procedimiento para agregar `app_PChop` en `settings.py` de `backend_PChop`
+## Paso 25 — Agregar `app_PChop` en `INSTALLED_APPS` de `backend_PChop/settings.py`
 
-En `backend_PChop/settings.py`, localizar `INSTALLED_APPS` y añadir:
+`'app_PChop',` dentro de `INSTALLED_APPS`.
 
-```python
-INSTALLED_APPS = [
-    # apps por defecto...
-    'app_PChop',
-]
-```
+## Paso 26 — Configurar `urls.py` de `backend_PChop` para enlazar con `app_PChop`
 
----
-
-## ## 26. Configurar `urls.py` de `backend_PChop` para enlazar con `app_PChop`
-
-Editar `backend_PChop/urls.py`:
+En `backend_PChop/urls.py`:
 
 ```python
-from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('app_PChop.urls')),
+    # path('admin/', admin.site.urls)  <-- si quieres acceso admin
 ]
 ```
 
----
+## Paso 27 — Registrar los modelos en `admin.py` y volver a migrar
 
-## ## 27. Procedimiento para registrar los modelos en `admin.py` y volver a migrar
+En `app_PChop/admin.py` registrar `Categoria`, `Producto`, `Pedido`. Luego:
 
-En `app_PChop/admin.py`:
+1. `python manage.py makemigrations app_PChop`
+2. `python manage.py migrate`
 
-```python
-from django.contrib import admin
-from .models import Categoria, Producto, Pedido
+> Por ahora trabajar sólo con **Categoria**; dejar `Producto` y `Pedido` para después (como indicaste).
 
-admin.site.register(Categoria)
-admin.site.register(Producto)
-admin.site.register(Pedido)
-```
+## Paso 28 — Usar colores suaves, atractivos y modernos; diseño sencillo
 
-Luego:
+Define un CSS básico (o usar Bootstrap + clases personalizadas) con paleta suave (ej. grises claros, azules pastel). Mantén el HTML limpio y legible.
 
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
+## Paso 29 — Al inicio: crear la estructura completa de carpetas y archivos
 
----
-
-## ## 28. Estética: utilizar colores suaves, atractivos y modernos
-
-* Recomendar paleta: tonos pastel/neutral (ej.: #f5f7fa, #e6eef5, acentos #6c7ae0).
-* Mantener diseño minimalista, espaciado y tipografía legible.
-* Usar clases de Bootstrap para consistencia.
-
----
-
-## ## 29. Al inicio crear la estructura completa de carpetas y archivos
-
-Antes de programar, crea estas carpetas y archivos mínimos:
+Crea de antemano la estructura en disco (por ejemplo con `mkdir` o VS Code):
 
 ```
 UIII_PChop_1128/
-├── .venv/
-├── backend_PChop/
-├── app_PChop/
-│   ├── migrations/
-│   ├── templates/
-│   │   ├── base.html
-│   │   ├── header.html
-│   │   ├── navbar.html
-│   │   ├── footer.html
-│   │   └── categoria/
-│   │       ├── agregar_categoria.html
-│   │       ├── ver_categorias.html
-│   │       ├── actualizar_categoria.html
-│   │       └── borrar_categoria.html
-│   ├── models.py
-│   ├── views.py
-│   ├── urls.py
-│   └── admin.py
-├── manage.py
-└── README.md
+├─ backend_PChop/
+├─ app_PChop/
+│  ├─ templates/
+│  │  ├─ categoria/
+│  │  ├─ base.html
+│  │  ├─ navbar.html
+│  │  └─ ...
+│  ├─ static/
+│  ├─ migrations/
+│  ├─ models.py
+│  ├─ views.py
+│  ├─ urls.py
+│  └─ admin.py
+└─ .venv/
 ```
+
+## Paso 30 — Asegurarse que el proyecto quede totalmente funcional (mínimo CRUD para Categoría)
+
+Verificar: crear categorías, listarlas, editar, borrar; templates cargan correctamente; rutas funcionan; admin opcional activado.
+
+## Paso 31 — Finalmente ejecutar el servidor en el puerto **8017**
+
+(Recordatorio final) Ejecuta:
+`python manage.py runserver 8017`
+Abre `http://127.0.0.1:8017/` y prueba todas las operaciones.
 
 ---
 
-## ## 30. Verificar que el proyecto sea totalmente funcional
-
-* Comprobar:
-
-  * Migraciones aplicadas sin errores.
-  * Rutas cargan correctamente.
-  * Formularios envían y guardan datos.
-  * Plantillas se renderizan sin excepción.
-  * Admin muestra modelos registrados.
-
----
-
-## ## 31. Ejecutar servidor en el puerto 8017 (final)
-
-```bash
-python manage.py runserver 8017
-```
-
-* Abrir en el navegador:
-
-```
-http://127.0.0.1:8017/
-```
-
-* Prueba completa: crear, editar y borrar categorías desde las vistas y verificar la persistencia en la base de datos.
-
----
-
-## 👨‍💻 Autor
-
-**Creado por Adrian Hazael — 5I — CBTIS 128**
-
-```
-
-
-```
