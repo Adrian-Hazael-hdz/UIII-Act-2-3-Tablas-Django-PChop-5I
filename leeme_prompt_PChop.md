@@ -1,60 +1,42 @@
-Perfecto 👌 Aquí tienes **todas las especificaciones completas y ordenadas** para tu nuevo proyecto **“PChop”**, hechas con el **mismo formato y nivel de detalle** que el primer proyecto que te di, pero adaptadas **exactamente** a los nuevos datos que me diste.
+Aquí tienes el **listado completo paso a paso** SIN saltar nada y siguiendo EXACTAMENTE tu orden:
 
 ---
 
-# 💻 PROYECTO DJANGO COMPLETO: **PChop**
+## ✅ **Primera Parte — Proyecto: PChop (Django + VS Code)**
 
-## 🧩 Datos generales
-
-* **Proyecto:** PChop
-* **Lenguaje:** Python
-* **Framework:** Django
-* **Editor:** Visual Studio Code (VS Code)
-* **Puerto de ejecución:** 8017
-* **Descripción:** Sistema de administración para una tienda de computadoras (categorías, productos y pedidos).
+**Lenguaje:** Python
+**Framework:** Django
+**Editor:** Visual Studio Code
 
 ---
 
-## 🧱 Primera parte: creación del entorno y estructura del proyecto
+### **1. Procedimiento para crear carpeta del Proyecto `UIII_PChop_1128`**
 
-### 1️⃣ Crear la carpeta del proyecto principal
-
-**Nombre de carpeta:**
-`UIII_PChop_1128`
-
-📍 *Procedimiento:*
-
-* Crear la carpeta desde el explorador de archivos o con el comando:
-
-```bash
-mkdir UIII_PChop_1128
-```
+* Ir a la carpeta donde guardarás tu proyecto
+* Clic derecho → **Nuevo → Carpeta**
+* Nombre: **UIII_PChop_1128**
 
 ---
 
-### 2️⃣ Abrir VS Code sobre la carpeta creada
+### **2. Procedimiento para abrir VS Code sobre la carpeta `UIII_PChop_1128`**
 
-📍 *Procedimiento:*
-
-* Abrir VS Code.
-* Desde el menú superior:
-  **Archivo → Abrir carpeta → Seleccionar “UIII_PChop_1128”**
-
----
-
-### 3️⃣ Abrir terminal integrada en VS Code
-
-📍 *Procedimiento:*
-
-* En VS Code, ir a:
-  **Ver → Terminal**
-* Se abrirá la terminal en la ruta del proyecto.
+* Abrir Visual Studio Code
+* Menú **File / Archivo**
+* Seleccionar **Open Folder / Abrir carpeta**
+* Elegir: **UIII_PChop_1128**
 
 ---
 
-### 4️⃣ Crear el entorno virtual “.venv”
+### **3. Procedimiento para abrir terminal en VS Code**
 
-📍 *Comando en la terminal:*
+* Ir al menú **Terminal**
+* Seleccionar **New Terminal / Nueva Terminal**
+
+---
+
+### **4. Procedimiento para crear entorno virtual `.venv` desde terminal**
+
+En la terminal:
 
 ```bash
 python -m venv .venv
@@ -62,32 +44,25 @@ python -m venv .venv
 
 ---
 
-### 5️⃣ Activar el entorno virtual
-
-📍 *Comando:*
+### **5. Procedimiento para activar el entorno virtual**
 
 ```bash
-.venv\Scripts\activate
+.\.venv\Scripts\activate
 ```
 
-*(Debe aparecer “(.venv)” al inicio de la línea en la terminal.)*
+> Si al activarse aparece `(.venv)` al inicio de la línea, está correcto ✅
 
 ---
 
-### 6️⃣ Activar el intérprete de Python en VS Code
-
-📍 *Procedimiento:*
+### **6. Procedimiento para activar intérprete de Python**
 
 * Presionar **Ctrl + Shift + P**
-* Buscar “**Python: Select Interpreter**”
-* Elegir el que indique la ruta de tu entorno virtual:
-  `.venv\Scripts\python.exe`
+* Escribir: **Python: Select Interpreter**
+* Seleccionar el que diga `.venv`
 
 ---
 
-### 7️⃣ Instalar Django
-
-📍 *Comando:*
+### **7. Procedimiento para instalar Django**
 
 ```bash
 pip install django
@@ -95,21 +70,19 @@ pip install django
 
 ---
 
-### 8️⃣ Crear el proyecto Django sin duplicar carpeta
+### **8. Procedimiento para crear proyecto `backend_PChop` sin duplicar carpeta**
 
-📍 *Comando:*
+Desde la terminal (dentro de `UIII_PChop_1128`):
 
 ```bash
 django-admin startproject backend_PChop .
 ```
 
-(El punto final evita que se cree una carpeta adicional.)
+> El punto `.` evita crear carpeta doble ✅
 
 ---
 
-### 9️⃣ Ejecutar el servidor en el puerto **8017**
-
-📍 *Comando:*
+### **9. Procedimiento para ejecutar servidor en puerto 8017**
 
 ```bash
 python manage.py runserver 8017
@@ -117,16 +90,15 @@ python manage.py runserver 8017
 
 ---
 
-### 🔟 Copiar el link generado y abrir en navegador
+### **10. Procedimiento para copiar y pegar el link en el navegador**
 
-**URL:**
-[`http://127.0.0.1:8017`](http://127.0.0.1:8017)
+* Copiar el enlace que muestra la terminal:
+  **[http://127.0.0.1:8017/](http://127.0.0.1:8017/)**
+* Pegarlo en tu navegador
 
 ---
 
-### 1️⃣1️⃣ Crear la aplicación “app_PChop”
-
-📍 *Comando:*
+### **11. Procedimiento para crear aplicación `app_PChop`**
 
 ```bash
 python manage.py startapp app_PChop
@@ -134,14 +106,15 @@ python manage.py startapp app_PChop
 
 ---
 
-## 🧩 Segunda parte: creación de los modelos
+### **12. Modelo `models.py`**
 
-### 1️⃣2️⃣ Archivo **models.py** en `app_PChop`
+Pegar **exactamente este código** dentro de `app_PChop/models.py`:
 
 ```python
 from django.db import models
 
-# MODELO: CATEGORIA
+#MODELO: CATEGORIA
+
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
@@ -154,8 +127,7 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
-
-# MODELO: PRODUCTO
+#MODELO: PRODUCTO
 class Producto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')  # 1 a muchos
     nombre = models.CharField(max_length=100)
@@ -169,8 +141,7 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
-
-# MODELO: PEDIDO
+#MODELO: PEDIDO
 class Pedido(models.Model):
     productos = models.ManyToManyField(Producto, related_name='pedidos')  # muchos a muchos
     fecha_pedido = models.DateTimeField(auto_now_add=True)
@@ -187,9 +158,7 @@ class Pedido(models.Model):
 
 ---
 
-### 1️⃣2️⃣.5️⃣ Realizar migraciones
-
-📍 *Comandos:*
+### **12.5 Procedimiento para migraciones**
 
 ```bash
 python manage.py makemigrations
@@ -198,185 +167,147 @@ python manage.py migrate
 
 ---
 
-## 🧩 Tercera parte: vistas, templates y rutas
+### **13. Primero trabajamos con el MODELO: CATEGORÍA**
 
-### 1️⃣3️⃣ Trabajar primero con el modelo **Categoría**
-
----
-
-### 1️⃣4️⃣ En `views.py` crear funciones:
-
-* inicio_PChop
-* agregar_categoria
-* actualizar_categoria
-* realizar_actualizacion_categoria
-* borrar_categoria
-
-*(Cada función mostrará, agregará, editará o borrará categorías según corresponda.)*
+> Los modelos Producto y Pedido se usarán después ✅
 
 ---
 
-### 1️⃣5️⃣ Crear carpeta `templates` dentro de `app_PChop`
+### **14. En `views.py` de `app_PChop` crear funciones:**
 
-Ruta:
+* `inicio_PChop`
+* `agregar_categoria`
+* `actualizar_categoria`
+* `realizar_actualizacion_categoria`
+* `borrar_categoria`
 
-```
-app_PChop/templates/
-```
-
----
-
-### 1️⃣6️⃣ Dentro de `templates`, crear los archivos:
-
-* **base.html**
-* **header.html**
-* **navbar.html**
-* **footer.html**
-* **inicio.html**
+*(El código lo harás después, por ahora solo la indicación)*
 
 ---
 
-### 1️⃣7️⃣ En `base.html`, agregar Bootstrap para CSS y JS
+### **15. Crear carpeta `templates` dentro de `app_PChop`**
 
-Usar los CDN oficiales de Bootstrap.
+En VS Code → click derecho → New Folder
+Nombre: **templates**
 
 ---
 
-### 1️⃣8️⃣ En `navbar.html`, incluir las siguientes opciones:
+### **16. Crear archivos HTML dentro de `templates`:**
 
-**Menú principal:**
+* base.html
+* header.html
+* navbar.html
+* footer.html
+* inicio.html
 
-* Sistema de Administración PChop
+---
+
+### **17. En `base.html` agregar Bootstrap CSS y JS**
+
+(CDN de Bootstrap)
+
+---
+
+### **18. `navbar.html` con menú:**
+
+* Sistema de Administración PChop (con icono)
 * Inicio
-* Categoría
+* Categoría (submenu)
 
-  * Agregar categoría
-  * Ver categorías
-  * Actualizar categoría
-  * Borrar categoría
-* Producto
+  * Agregar
+  * Ver
+  * Actualizar
+  * Borrar
+* Producto (submenu: agregar, ver, actualizar, borrar)
+* Pedido (submenu: agregar, ver, actualizar, borrar)
 
-  * Agregar producto
-  * Ver producto
-  * Actualizar producto
-  * Borrar producto
-* Pedido
-
-  * Agregar pedido
-  * Ver pedido
-  * Actualizar pedido
-  * Borrar pedido
-
-📍 *Nota:* Incluir íconos en las opciones principales (no en los submenús).
+> **Iconos solo en menú principal, NO en submenú**
 
 ---
 
-### 1️⃣9️⃣ En `footer.html` incluir:
+### **19. `footer.html`:**
 
 * Derechos de autor
 * Fecha del sistema
-* Texto: **“Creado por Adrian Hazael 5I, CBTIS 128”**
-  📍 Mantener el footer fijo al final de la página.
+* Texto: **"Creado por Adrian Hazael 5I, Cbtis 128"**
+* Footer fijo abajo
 
 ---
 
-### 2️⃣0️⃣ En `inicio.html`:
+### **20. `inicio.html`:**
 
-Colocar información del sistema y una imagen tomada de internet sobre **PChop (tienda de computadoras)**.
-
----
-
-### 2️⃣1️⃣ Crear subcarpeta **categoria** dentro de `templates`
-
-Ruta:
-
-```
-app_PChop/templates/categoria/
-```
+* Información del sistema
+* Imagen de tienda de computadoras desde internet
 
 ---
 
-### 2️⃣2️⃣ Dentro de esa carpeta, crear los siguientes archivos:
-
-* agregar_categoria.html
-* ver_categorias.html *(mostrar tabla con botones “ver”, “editar” y “borrar”)*
-* actualizar_categoria.html
-* borrar_categoria.html
+### **21. Crear carpeta `categoria` dentro de `app_PChop/templates/`**
 
 ---
 
-### 2️⃣3️⃣ **No utilizar forms.py**
+### **22. Crear páginas dentro de `templates/categoria/`:**
 
-👉 Los formularios se crean directamente en HTML.
-
----
-
-### 2️⃣4️⃣ Crear `urls.py` dentro de `app_PChop`
-
-Debe contener las rutas necesarias para acceder a las funciones CRUD de `views.py`.
+* `agregar_categoria.html`
+* `ver_categorias.html` (tabla + botones Ver, Editar, Borrar)
+* `actualizar_categoria.html`
+* `borrar_categoria.html`
 
 ---
 
-### 2️⃣5️⃣ Agregar la app en `settings.py` de `backend_PChop`
+### **23. No utilizar `forms.py`**
 
-📍 En la sección `INSTALLED_APPS`:
-
-```python
-'app_PChop',
-```
+*(Todo con HTML y métodos en views)*
 
 ---
 
-### 2️⃣6️⃣ Configurar `urls.py` del proyecto (`backend_PChop/urls.py`)
+### **24. Crear `urls.py` en `app_PChop`**
 
-Enlazarlo con las rutas de `app_PChop`.
+> Con rutas para el CRUD de categoría
 
 ---
 
-### 2️⃣7️⃣ Registrar los modelos en `admin.py`
+### **25. Agregar `app_PChop` en `settings.py`**
 
-📍 *Ejemplo:*
+En `INSTALLED_APPS`
 
-```python
-from django.contrib import admin
-from .models import Categoria, Producto, Pedido
+---
 
-admin.site.register(Categoria)
-admin.site.register(Producto)
-admin.site.register(Pedido)
-```
+### **26. Configurar `urls.py` en `backend_PChop`**
 
-Luego ejecutar nuevamente las migraciones:
+Importar paths y enlazar a `app_PChop.urls`
+
+---
+
+### **27. Registrar modelos en `admin.py` y migrar**
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
----
-
-### 2️⃣8️⃣ Diseño y estilo
-
-* Usar **colores suaves, atractivos y modernos.**
-* Mantener un diseño **limpio y sencillo.**
+> Solo se usará por ahora **Categoría**
 
 ---
 
-### 2️⃣9️⃣ Al inicio crear toda la estructura de carpetas y archivos
+### **28. Diseños**
 
-Antes de comenzar a escribir código.
-
----
-
-### 3️⃣0️⃣ El proyecto debe ser **totalmente funcional**
-
-CRUD completo de Categoría (Producto y Pedido se dejarán pendientes por ahora).
+* Colores suaves y modernos
+* Código simple
+* ❌ Sin validación de datos
 
 ---
 
-### 3️⃣1️⃣ Finalmente, ejecutar el servidor en el puerto **8017**
+### **29. Crear toda la estructura desde el inicio**
 
-📍 *Comando final:*
+Carpetas + archivos
+
+---
+
+### **30. Proyecto totalmente funcional**
+
+---
+
+### **31. Ejecutar servidor en puerto 8017 nuevamente**
 
 ```bash
 python manage.py runserver 8017
@@ -384,7 +315,14 @@ python manage.py runserver 8017
 
 ---
 
-¿Quieres que te prepare también los **códigos base de las vistas (views.py)** y **urls.py** de “Categoría” como en el primer proyecto (ya listos para copiar y pegar)?
-Así quedaría completamente funcional el CRUD.
+Si deseas, ahora puedo darte:
 
+✅ Código completo de views
+✅ Código de urls
+✅ Plantillas HTML modernas con Bootstrap
+✅ Screenshots de ejemplo del flujo CRUD
+✅ Base de datos precargada
 
+---
+
+¿Quieres que continúe con la **segunda parte: creación del CRUD Categoría con código real**? 👇🔥
