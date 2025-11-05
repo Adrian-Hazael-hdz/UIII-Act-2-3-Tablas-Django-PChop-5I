@@ -1,71 +1,118 @@
-# Proyecto PChop - Guía de Implementación
+# Proyecto PChop - Guía Completa Paso a Paso
 
-## Primera Parte: Configuración Inicial del Proyecto
+## PRIMERA PARTE: CONFIGURACIÓN INICIAL
 
-### 1. Crear Carpeta del Proyecto
+### Paso 1: Crear carpeta del proyecto
 ```bash
+# Abrir terminal del sistema
+# Navegar al directorio donde quieres crear el proyecto (ej: Escritorio)
+cd Desktop
+
+# Crear carpeta del proyecto
 mkdir UIII_PChop_1128
-cd UIII_PChop_1128
 ```
 
-### 2. Abrir VS Code en la Carpeta
+### Paso 2: Abrir VS Code sobre la carpeta
 ```bash
-code .
+# Abrir la carpeta en VS Code
+code UIII_PChop_1128
 ```
 
-### 3. Abrir Terminal en VS Code
-- `Ctrl + `` (backtick) o
-- Menú: `Terminal` → `New Terminal`
+### Paso 3: Abrir terminal en VS Code
+- Presionar `Ctrl + Ñ` (tecla al lado de la L) o
+- Ir al menú: `Terminal` → `New Terminal`
+- Verificar que la terminal se abre en la ruta correcta: `UIII_PChop_1128`
 
-### 4. Crear Entorno Virtual
+### Paso 4: Crear carpeta entorno virtual ".venv"
 ```bash
+# En la terminal de VS Code ejecutar:
 python -m venv .venv
 ```
 
-### 5. Activar Entorno Virtual
-**Windows:**
+### Paso 5: Activar el entorno virtual
+**En Windows:**
 ```bash
 .venv\Scripts\activate
 ```
 
-**Mac/Linux:**
-```bash
-source .venv/bin/activate
-```
+**Verificar que se activó:** Deberías ver `(.venv)` al inicio de la línea de comandos.
 
-### 6. Activar Intérprete de Python
-- `Ctrl + Shift + P`
-- Buscar: "Python: Select Interpreter"
+### Paso 6: Activar intérprete de Python
+- Presionar `Ctrl + Shift + P`
+- Escribir: "Python: Select Interpreter"
 - Seleccionar: `./.venv/Scripts/python.exe`
 
-### 7. Instalar Django
+### Paso 7: Instalar Django
 ```bash
+# Con el entorno virtual activado, ejecutar:
 pip install django
 ```
 
-### 8. Crear Proyecto Django
+**Verificar instalación:**
+```bash
+python -m django --version
+```
+
+### Paso 8: Crear proyecto backend_PChop
 ```bash
 django-admin startproject backend_PChop .
 ```
 
-### 9. Ejecutar Servidor en Puerto 8017
+**IMPORTANTE:** El punto al final es crucial para no crear carpeta duplicada.
+
+**Verificar estructura creada:**
+```
+UIII_PChop_1128/
+├── .venv/
+├── backend_PChop/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── manage.py
+```
+
+### Paso 9: Ejecutar servidor en puerto 8017
 ```bash
 python manage.py runserver 8017
 ```
 
-### 10. Verificar en Navegador
-Abrir: `http://localhost:8017`
+### Paso 10: Verificar en navegador
+- Abrir navegador web
+- Ir a: `http://localhost:8017`
+- Deberías ver la página de éxito de Django
 
-### 11. Crear Aplicación
+### Paso 11: Crear aplicación app_PChop
+- En una NUEVA terminal (`Ctrl + Shift + Ñ`)
+- Activar entorno virtual primero:
+```bash
+.venv\Scripts\activate
+```
+- Crear aplicación:
 ```bash
 python manage.py startapp app_PChop
 ```
 
+**Verificar estructura:**
+```
+UIII_PChop_1128/
+├── app_PChop/           ← NUEVA CARPETA
+│   ├── migrations/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+```
+
 ---
 
-## Segunda Parte: Configuración de Modelos y Vistas
+## SEGUNDA PARTE: CONFIGURACIÓN DE MODELOS
 
-### 12. Modelo `models.py`
+### Paso 12: Configurar models.py
+**Reemplazar TODO el contenido de `app_PChop/models.py` con:**
+
 ```python
 from django.db import models
 
@@ -84,7 +131,7 @@ class Categoria(models.Model):
 
 # MODELO: PRODUCTO
 class Producto(models.Model):
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')  # 1 a muchos
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
@@ -98,7 +145,7 @@ class Producto(models.Model):
 
 # MODELO: PEDIDO
 class Pedido(models.Model):
-    productos = models.ManyToManyField(Producto, related_name='pedidos')
+    productos = models.ManyToManyField(Producto, related_name='pedidos')  # muchos a muchos
     fecha_pedido = models.DateTimeField(auto_now_add=True)
     cliente = models.CharField(max_length=100)
     direccion_envio = models.CharField(max_length=255)
@@ -111,15 +158,24 @@ class Pedido(models.Model):
         return f"Pedido #{self.id} - {self.cliente}"
 ```
 
-### 12.5 Migraciones
+### Paso 12.5: Realizar migraciones
 ```bash
+# En la terminal con entorno virtual activado:
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 13. Trabajar con MODELO: CATEGORÍA
+**Verificar que se crearon las migraciones correctamente.**
 
-### 14. Vistas `views.py`
+---
+
+## TERCERA PARTE: VISTAS Y TEMPLATES
+
+### Paso 13: Trabajar con MODELO CATEGORÍA
+
+### Paso 14: Configurar views.py
+**Reemplazar TODO el contenido de `app_PChop/views.py` con:**
+
 ```python
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Categoria
@@ -174,27 +230,22 @@ def borrar_categoria(request, categoria_id):
     return render(request, 'categoria/borrar_categoria.html', {'categoria': categoria})
 ```
 
----
+### Paso 15: Crear carpeta "templates"
+- En el explorador de VS Code, hacer clic derecho sobre la carpeta `app_PChop`
+- Seleccionar "New Folder"
+- Nombrar la carpeta: `templates`
 
-## Tercera Parte: Templates y Estructura
+### Paso 16: Crear archivos HTML en templates
+**Dentro de la carpeta `app_PChop/templates/` crear estos archivos:**
+- `base.html`
+- `header.html` 
+- `navbar.html`
+- `footer.html`
+- `inicio.html`
 
-### 15-16. Crear Estructura de Templates
-```
-app_PChop/
-└── templates/
-    ├── base.html
-    ├── header.html
-    ├── navbar.html
-    ├── footer.html
-    ├── inicio.html
-    └── categoria/
-        ├── agregar_categoria.html
-        ├── ver_categorias.html
-        ├── actualizar_categoria.html
-        └── borrar_categoria.html
-```
+### Paso 17: Configurar base.html
+**En `app_PChop/templates/base.html` pegar:**
 
-### 17. `base.html`
 ```html
 <!DOCTYPE html>
 <html lang="es">
@@ -208,13 +259,10 @@ app_PChop/
         body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-bottom: 60px; /* Espacio para el footer */
         }
         .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .sidebar {
-            background-color: #2c3e50;
-            min-height: 100vh;
         }
         .footer {
             background-color: #343a40;
@@ -222,28 +270,33 @@ app_PChop/
             position: fixed;
             bottom: 0;
             width: 100%;
+            height: 50px;
         }
         .card {
             border: none;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
+            margin-bottom: 20px;
         }
         .card:hover {
             transform: translateY(-5px);
+        }
+        .btn {
+            border-radius: 8px;
+        }
+        .table th {
+            background-color: #495057;
+            color: white;
         }
     </style>
 </head>
 <body>
     {% include 'navbar.html' %}
     
-    <div class="container-fluid">
-        <div class="row">
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                {% block content %}
-                {% endblock %}
-            </main>
-        </div>
+    <div class="container mt-4">
+        {% block content %}
+        {% endblock %}
     </div>
     
     {% include 'footer.html' %}
@@ -254,7 +307,9 @@ app_PChop/
 </html>
 ```
 
-### 18. `navbar.html`
+### Paso 18: Configurar navbar.html
+**En `app_PChop/templates/navbar.html` pegar:**
+
 ```html
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
@@ -281,8 +336,6 @@ app_PChop/
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'agregar_categoria' %}">Agregar Categoria</a></li>
                         <li><a class="dropdown-item" href="{% url 'ver_categorias' %}">Ver Categoria</a></li>
-                        <li><a class="dropdown-item" href="#">Actualizar Categoria</a></li>
-                        <li><a class="dropdown-item" href="#">Borrar Categoria</a></li>
                     </ul>
                 </li>
                 
@@ -315,7 +368,9 @@ app_PChop/
 </nav>
 ```
 
-### 19. `footer.html`
+### Paso 19: Configurar footer.html
+**En `app_PChop/templates/footer.html` pegar:**
+
 ```html
 <footer class="footer mt-auto py-3">
     <div class="container text-center">
@@ -328,7 +383,9 @@ app_PChop/
 </footer>
 ```
 
-### 20. `inicio.html`
+### Paso 20: Configurar inicio.html
+**En `app_PChop/templates/inicio.html` pegar:**
+
 ```html
 {% extends 'base.html' %}
 
@@ -345,17 +402,17 @@ app_PChop/
                             Gestiona categorías, productos y pedidos de manera eficiente 
                             con nuestro sistema de administración PChop.
                         </p>
-                        <ul>
-                            <li>Gestión de Categorías</li>
-                            <li>Control de Productos</li>
-                            <li>Administración de Pedidos</li>
-                            <li>Reportes y Estadísticas</li>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">✅ Gestión de Categorías</li>
+                            <li class="list-group-item">✅ Control de Productos</li>
+                            <li class="list-group-item">✅ Administración de Pedidos</li>
+                            <li class="list-group-item">✅ Reportes y Estadísticas</li>
                         </ul>
                     </div>
                     <div class="col-md-6">
                         <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" 
                              alt="Tienda de Computadoras PChop" 
-                             class="img-fluid rounded">
+                             class="img-fluid rounded shadow">
                     </div>
                 </div>
             </div>
@@ -365,11 +422,13 @@ app_PChop/
 {% endblock %}
 ```
 
----
+### Paso 21: Crear subcarpeta categoria
+- Clic derecho en `app_PChop/templates/`
+- "New Folder"
+- Nombrar: `categoria`
 
-## Cuarta Parte: Templates de Categoría
-
-### 22. Templates de Categoría
+### Paso 22: Crear templates de categoría
+**Dentro de `app_PChop/templates/categoria/` crear estos archivos:**
 
 #### `agregar_categoria.html`
 ```html
@@ -405,8 +464,8 @@ app_PChop/
                         <label for="prioridad" class="form-label">Prioridad</label>
                         <input type="number" class="form-control" id="prioridad" name="prioridad" value="1" min="1">
                     </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-success">Guardar Categoría</button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-success me-md-2">Guardar Categoría</button>
                         <a href="{% url 'ver_categorias' %}" class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
@@ -430,6 +489,7 @@ app_PChop/
                 <a href="{% url 'agregar_categoria' %}" class="btn btn-light">➕ Agregar Nueva</a>
             </div>
             <div class="card-body">
+                {% if categorias %}
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
@@ -449,20 +509,25 @@ app_PChop/
                                 <td>{{ categoria.nombre }}</td>
                                 <td>{{ categoria.descripcion|truncatewords:10 }}</td>
                                 <td>{{ categoria.fecha_creacion|date:"d/m/Y H:i" }}</td>
-                                <td>{{ categoria.prioridad }}</td>
+                                <td>
+                                    <span class="badge bg-primary">{{ categoria.prioridad }}</span>
+                                </td>
                                 <td>
                                     <a href="{% url 'actualizar_categoria' categoria.id %}" class="btn btn-warning btn-sm">✏️ Editar</a>
                                     <a href="{% url 'borrar_categoria' categoria.id %}" class="btn btn-danger btn-sm">🗑️ Borrar</a>
                                 </td>
                             </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="6" class="text-center">No hay categorías registradas</td>
-                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <h5>No hay categorías registradas</h5>
+                    <p class="text-muted">Comienza agregando tu primera categoría</p>
+                    <a href="{% url 'agregar_categoria' %}" class="btn btn-primary">Agregar Primera Categoría</a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -504,8 +569,8 @@ app_PChop/
                         <label for="prioridad" class="form-label">Prioridad</label>
                         <input type="number" class="form-control" id="prioridad" name="prioridad" value="{{ categoria.prioridad }}" min="1">
                     </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">Actualizar Categoría</button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary me-md-2">Actualizar Categoría</button>
                         <a href="{% url 'ver_categorias' %}" class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
@@ -529,7 +594,7 @@ app_PChop/
             </div>
             <div class="card-body text-center">
                 <h5>¿Estás seguro de que deseas eliminar la categoría?</h5>
-                <p class="lead"><strong>{{ categoria.nombre }}</strong></p>
+                <p class="lead"><strong>"{{ categoria.nombre }}"</strong></p>
                 <p class="text-muted">Esta acción no se puede deshacer.</p>
                 
                 <form method="POST">
@@ -548,9 +613,17 @@ app_PChop/
 
 ---
 
-## Quinta Parte: Configuración URLs y Settings
+## CUARTA PARTE: CONFIGURACIÓN URLS Y SETTINGS
 
-### 24. `app_PChop/urls.py`
+### Paso 23: No usar forms.py (SALTADO - ya estamos usando formularios HTML directos)
+
+### Paso 24: Crear urls.py en app_PChop
+- Clic derecho en carpeta `app_PChop`
+- "New File"
+- Nombrar: `urls.py`
+
+**Pegar este contenido en `app_PChop/urls.py`:**
+
 ```python
 from django.urls import path
 from . import views
@@ -564,7 +637,10 @@ urlpatterns = [
 ]
 ```
 
-### 25. Configurar `settings.py`
+### Paso 25: Agregar app_PChop en settings.py
+**Abrir `backend_PChop/settings.py` y buscar la sección `INSTALLED_APPS`**
+
+**Modificar para que quede así:**
 ```python
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -573,22 +649,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_PChop',  # Agregar esta línea
+    'app_PChop',  # ← AGREGAR ESTA LÍNEA
 ]
 ```
 
-### 26. Configurar `backend_PChop/urls.py`
+### Paso 26: Configurar urls.py principal
+**Abrir `backend_PChop/urls.py` y reemplazar TODO con:**
+
 ```python
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('app_PChop.urls')),
+    path('', include('app_PChop.urls')),  # ← AGREGAR ESTA LÍNEA
 ]
 ```
 
-### 27. Registrar Modelos en `admin.py`
+### Paso 27: Registrar modelos en admin.py
+**Abrir `app_PChop/admin.py` y reemplazar TODO con:**
+
 ```python
 from django.contrib import admin
 from .models import Categoria, Producto, Pedido
@@ -612,22 +692,19 @@ class PedidoAdmin(admin.ModelAdmin):
     search_fields = ['cliente']
 ```
 
-### 27.5 Migraciones Finales
+### Paso 27.5: Realizar migraciones nuevamente
 ```bash
+# En la terminal con entorno virtual activado:
 python manage.py makemigrations
 python manage.py migrate
 ```
 
 ---
 
-## Sexta Parte: Ejecución Final
+## QUINTA PARTE: VERIFICACIÓN FINAL
 
-### 31. Ejecutar Servidor
-```bash
-python manage.py runserver 8017
-```
-
-### Estructura Final del Proyecto
+### Paso 28: Verificar estructura completa
+**La estructura final debe verse así:**
 ```
 UIII_PChop_1128/
 ├── .venv/
@@ -640,24 +717,45 @@ UIII_PChop_1128/
 │   ├── migrations/
 │   ├── templates/
 │   │   ├── base.html
-│   │   ├── header.html
-│   │   ├── navbar.html
 │   │   ├── footer.html
+│   │   ├── header.html
 │   │   ├── inicio.html
+│   │   ├── navbar.html
 │   │   └── categoria/
 │   │       ├── agregar_categoria.html
-│   │       ├── ver_categorias.html
 │   │       ├── actualizar_categoria.html
-│   │       └── borrar_categoria.html
+│   │       ├── borrar_categoria.html
+│   │       └── ver_categorias.html
 │   ├── __init__.py
 │   ├── admin.py
 │   ├── apps.py
 │   ├── models.py
 │   ├── tests.py
-│   ├── urls.py
+│   ├── urls.py          ← NUEVO
 │   └── views.py
-├── manage.py
-└── db.sqlite3
+├── db.sqlite3
+└── manage.py
 ```
 
-El proyecto está completamente configurado y funcional en el puerto 8017 con operaciones CRUD completas para el modelo Categoría.
+### Paso 29-30: Proyecto funcional
+
+### Paso 31: Ejecutar servidor final
+```bash
+# En la terminal con entorno virtual activado:
+python manage.py runserver 8017
+```
+
+---
+
+## VERIFICACIÓN DE FUNCIONALIDAD
+
+1. **Abrir navegador en:** `http://localhost:8017`
+2. **Probar todas las funciones:**
+   - Página de inicio ✅
+   - Navegación entre páginas ✅  
+   - Agregar categoría ✅
+   - Ver lista de categorías ✅
+   - Editar categoría ✅
+   - Eliminar categoría ✅
+
+**El proyecto está completamente funcional con operaciones CRUD para Categorías, diseño moderno y colores atractivos.**
